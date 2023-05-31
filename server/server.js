@@ -4,7 +4,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
-app.use(express.static("."));
+app.use(express.static("./.."));
 
 app.get("/", function (req, res) {
    res.redirect("index.html");
@@ -25,10 +25,11 @@ function generateMatrix() {
       }
    }
    characters(400, 1)
-   characters(200, 2)
-   characters(200, 3)
-   characters(150, 4)
-   characters(20, 5)
+   characters(400, 2)
+   characters(400, 3)
+   characters(100, 4)
+   characters(400, 5)
+   characters(400, 6)
    return matrix;
 }
 
@@ -39,6 +40,7 @@ grassEaterArr = [];
 predatorArr = [];
 waterArr = [];
 godArr = [];
+magmaArr = [];
 
 Water = require("./modules/water");
 God = require("./modules/god");
@@ -46,6 +48,7 @@ LivingCreature = require("./modules/livingCreature");
 Predator = require("./modules/predator");
 Grass = require("./modules/class");
 GrassEater = require("./modules/grassEater");
+Magma = require('./modules/magma')
 
 
 
@@ -95,10 +98,13 @@ for (var y = 0; y < matrix.length; ++y) {
        } else if (matrix[y][x] == 5) {
            var god = new God(x, y, 5)
            godArr.push(god)
+       } else if (matrix[y][x] == 6) {
+            var mag = new Magma(x, y, 6)
+            magmaArr.push(mag)
+        }
        }
    }
 
-}
 
 function drawserverayin() {
    for (var i in grassArr) {
@@ -111,10 +117,13 @@ function drawserverayin() {
       predatorArr[i].eat();
    }
    for (var i in waterArr) {
-      waterArr[i].move();
+      waterArr[i].eat();
    }
    for (var i in godArr) {
       godArr[i].eat();
+   }
+   for (var i in magmaArr) {
+      magmaArr[i].eat();
    }
 
    let sendData = {

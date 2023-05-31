@@ -54,7 +54,6 @@ module.exports = class God {
     
     
         eat() {
-    
             let foods = this.chooseCell(2 && 3)
             let food = random(foods)
             if (food) {

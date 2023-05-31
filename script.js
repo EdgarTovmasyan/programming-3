@@ -28,6 +28,8 @@ function drawmatrix(data) {
                 fill("blue")
             } else if (matrix[y][x] == 5) {
                 fill("white")
+            } else if (matrix[y][x] == 6) {
+                fill("orange")
             }
             rect(x * side, y * side, side, side);
 
